@@ -1,25 +1,32 @@
 {
   "name": "waitress-app",
-  "version": "1.0.0",
-  "description": "A simple application to take and manage restaurant orders",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/olajide1234/waitress-app.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "keywords": [
-    "waitress",
-    "react",
-    "redux",
-    "spa"
-  ],
-  "author": "Yusuf Olajide Ayinla",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/olajide1234/waitress-app/issues"
-  },
-  "homepage": "https://github.com/olajide1234/waitress-app#readme"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
