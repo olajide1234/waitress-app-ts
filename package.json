@@ -1,0 +1,25 @@
+{
+  "name": "waitress-app",
+  "version": "1.0.0",
+  "description": "A simple application to take and manage restaurant orders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olajide1234/waitress-app.git"
+  },
+  "keywords": [
+    "waitress",
+    "react",
+    "redux",
+    "spa"
+  ],
+  "author": "Yusuf Olajide Ayinla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olajide1234/waitress-app/issues"
+  },
+  "homepage": "https://github.com/olajide1234/waitress-app#readme"
+}
