@@ -1,12 +1,10 @@
 import React from 'react';
-import OrderTable from '../../components/OrderTable';
-// import { Link } from 'react-router-dom'
-{/* <Link to="/taniarascia">taniarascia</Link> on GitHub. */}
+import OrderForm from '../../components/OrderForm';
 
 
-function FormView({ hello }) {
+function FormView() {
   return (
-    <OrderTable />
+    <OrderForm />
   );
 }
 
