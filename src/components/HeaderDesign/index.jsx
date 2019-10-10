@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { Menu, Icon, PageHeader, Row, Col, Divider } from 'antd';
 
@@ -8,10 +8,14 @@ function HeaderDesign() {
 
   const [currentDetails, setCurrentDetails] = useState({ current: pathname });
 
+  useEffect(() => {
+    setCurrentDetails({ ...currentDetails, current: pathname });
+  }, [pathname]);
+
+
   function handleClick(e) {
     const { key } = e;
     history.push(key);
-    setCurrentDetails({ ...currentDetails, current: e.key });
   };
 
   return (
@@ -23,7 +27,7 @@ function HeaderDesign() {
       </Row>
       <Row>
         <Col>
-          <Menu style={{textAlign: 'center'}} onClick={handleClick} selectedKeys={[currentDetails.current]} mode="horizontal" theme="dark">
+          <Menu style={{ textAlign: 'center' }} onClick={handleClick} selectedKeys={[currentDetails.current]} mode="horizontal" theme="dark">
             <Menu.Item key="/" value="viewOrders">
               <Icon type="appstore" />
               View orders

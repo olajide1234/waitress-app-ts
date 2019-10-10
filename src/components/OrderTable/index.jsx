@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { editStatus } from '../../actions';
-
 import { Table, Divider, Tag, Select, Button } from 'antd';
 
 function OrderTable({ data }) {
@@ -19,6 +18,7 @@ function OrderTable({ data }) {
     if (state.key === key) {
       const response = await dispatch(editStatus({ ...state }))
       if (response.message === 'success') {
+        await setChangeState({key: '', status: ''})
         alert('Order has been successfully updated');
       } else {
         alert('An error occured, please try later');
@@ -47,19 +47,22 @@ function OrderTable({ data }) {
       <Column
         title="Update state"
         key="action"
-        render={(text, record) => (
-          <span>
-            <Select defaultValue="Jotted down" style={{ width: 160 }} key={record.key} onChange={(value) => handleChange(value, record.key)}>
-              <Option value="Jotted down">Jotted down</Option>
-              <Option value="Getting cooked">Getting cooked</Option>
-              <Option value="Ready for table">Ready for table</Option>
-              <Option value="Taken to table">Taken to table</Option>
-            </Select>
+        render={(text, record) => {
+          const toDisable = record.key === changeState.key ? false : true;
+          return (
+            <span>
+              <Select defaultValue="Jotted down" style={{ width: 160 }} key={record.key} onChange={(value) => handleChange(value, record.key)}>
+                <Option value="Jotted down">Jotted down</Option>
+                <Option value="Getting cooked">Getting cooked</Option>
+                <Option value="Ready for table">Ready for table</Option>
+                <Option value="Taken to table">Taken to table</Option>
+              </Select>
 
-            <Divider type="vertical" />
-            <Button onClick={() => handleSubmit(record.key, changeState)}>Update</Button>
-          </span>
-        )}
+              <Divider type="vertical" />
+              <Button disabled={toDisable} onClick={() => handleSubmit(record.key, changeState)}>Update</Button>
+            </span>
+          )
+        }}
       />
     </Table>
   );

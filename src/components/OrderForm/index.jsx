@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { addRecord } from '../../actions';
 
 import {
@@ -13,6 +14,7 @@ const { TextArea } = Input;
 
 function OrderForm() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [formInput, setFormInput] = useState(
     {
       firstName: '',
@@ -40,7 +42,15 @@ function OrderForm() {
     const response = await dispatch(addRecord(data))
 
     if (response.message === 'success') {
-      alert('Order has been successfully saved');
+      await setFormInput({
+        firstName: '',
+        lastName: '',
+        tableNo: '',
+        order: '',
+        state: 'Jotted down',
+      });
+      await history.push("/");
+
     } else {
       alert('An error occured, please try later');
     }
