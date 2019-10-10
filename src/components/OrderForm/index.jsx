@@ -33,6 +33,10 @@ function OrderForm() {
 
   async function handleSubmit(data) {
 
+    if (data.tableNo === "" || data.order === "") {
+      return alert('Table number and order are compulsory');
+    }
+
     const response = await dispatch(addRecord(data))
 
     if (response.message === 'success') {
