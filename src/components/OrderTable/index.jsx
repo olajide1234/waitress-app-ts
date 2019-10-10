@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { editStatus } from '../../actions';
 
-import { Table, Divider, Tag, Select } from 'antd';
+import { Table, Divider, Tag, Select, Button } from 'antd';
 
-
-const data = [
-  {
-    key: '1',
-    firstName: 'John',
-    lastName: 'Brown',
-    tableNo: 32,
-    order: 'Rice and jollof',
-    state: 'Jotted down',
-  },
-  {
-    key: '2',
-    firstName: 'Jim',
-    lastName: 'Green',
-    tableNo: 42,
-    order: 'Rice and jollof',
-    state: 'Getting cooked',
-  },
-];
-
-function OrderTable() {
+function OrderTable({ data }) {
+  const dispatch = useDispatch();
+  const [changeState, setChangeState] = useState({ key: '', status: '' })
   const { Column, ColumnGroup } = Table;
   const { Option } = Select;
 
-  function handleChange() { };
+  function handleChange(value, key) {
+    setChangeState({ key, status: value })
+  };
+
+  async function handleSubmit(key, state) {
+
+    if (state.key === key) {
+      const response = await dispatch(editStatus({ ...state }))
+      if (response.message === 'success') {
+        alert('Order has been successfully updated');
+      } else {
+        alert('An error occured, please try later');
+      }
+    }
+  }
 
   return (
     <Table dataSource={data}>
@@ -51,15 +49,15 @@ function OrderTable() {
         key="action"
         render={(text, record) => (
           <span>
-            <Select defaultValue="Getting cooked" style={{ width: 160 }} onChange={handleChange}>
-              <Option value="jack">Jotted down</Option>
-              <Option value="lucy">Getting cooked</Option>
-              <Option value="Yiminghe">Ready for table</Option>
-              <Option value="Yiminghe">Taken to table</Option>
+            <Select defaultValue="Jotted down" style={{ width: 160 }} key={record.key} onChange={(value) => handleChange(value, record.key)}>
+              <Option value="Jotted down">Jotted down</Option>
+              <Option value="Getting cooked">Getting cooked</Option>
+              <Option value="Ready for table">Ready for table</Option>
+              <Option value="Taken to table">Taken to table</Option>
             </Select>
 
             <Divider type="vertical" />
-            <a>Update</a>
+            <Button onClick={() => handleSubmit(record.key, changeState)}>Update</Button>
           </span>
         )}
       />
