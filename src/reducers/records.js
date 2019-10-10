@@ -1,17 +1,13 @@
 function updateObject(oldObject, newValues) {
-  // Encapsulate the idea of passing a new object as the first parameter
-  // to Object.assign to ensure we correctly copy data instead of mutating
   return Object.assign({}, oldObject, newValues)
 }
 
 function updateItemInArray(array, key, updateItemCallback) {
   const updatedItems = array.map(record => {
     if (record.key !== key) {
-      // Since we only want to update one record, preserve all others as they are now
       return record
     }
 
-    // Use the provided callback to create an updated item
     const updatedItem = updateItemCallback(record)
     return updatedItem
   })
