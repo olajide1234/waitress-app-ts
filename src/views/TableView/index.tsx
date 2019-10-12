@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 function TableView() {
 
-  const records = useSelector(state => state.records)
+  const records = useSelector((state: { records: {} }) => state.records)
   return (
     <OrderTable data={records} />
   );
