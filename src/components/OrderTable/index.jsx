@@ -3,34 +3,22 @@ import { useDispatch } from 'react-redux';
 import { editStatus } from '../../actions';
 import { Table, Divider, Tag, Select, Button } from 'antd';
 
-
-interface Props {
-  data: {
-    key: '1',
-    firstName: 'John',
-    lastName: 'Brown',
-    tableNo: 32,
-    order: 'Rice and jollof',
-    state: 'Jotted down',
-  }[];
-}
-
-function OrderTable({ data }: Props) {
+function OrderTable({ data }) {
   const dispatch = useDispatch();
-  const [changeState, setChangeState] = useState({ key: 0, status: '' })
+  const [changeState, setChangeState] = useState({ key: '', status: '' })
   const { Column, ColumnGroup } = Table;
   const { Option } = Select;
 
-  function handleChange(value: string, key: number) {
+  function handleChange(value, key) {
     setChangeState({ key, status: value })
   };
 
-  async function handleSubmit(key: number, state: { key: number, status: string }) {
+  async function handleSubmit(key, state) {
 
     if (state.key === key) {
       const response = await dispatch(editStatus({ ...state }))
       if (response.message === 'success') {
-        await setChangeState({ key: 0, status: '' })
+        await setChangeState({key: '', status: ''})
         alert('Order has been successfully updated');
       } else {
         alert('An error occured, please try later');
@@ -50,7 +38,7 @@ function OrderTable({ data }: Props) {
         title="State"
         dataIndex="state"
         key="state"
-        render={(state: string) =>
+        render={(state) =>
           <Tag color="blue">
             {state}
           </Tag>
@@ -59,11 +47,11 @@ function OrderTable({ data }: Props) {
       <Column
         title="Update state"
         key="action"
-        render={(text: string, record: { key: number }) => {
+        render={(text, record) => {
           const toDisable = record.key === changeState.key ? false : true;
           return (
             <span>
-              <Select defaultValue="Jotted down" style={{ width: 160 }} key={record.key} onChange={(value: string) => handleChange(value, record.key)}>
+              <Select defaultValue="Jotted down" style={{ width: 160 }} key={record.key} onChange={(value) => handleChange(value, record.key)}>
                 <Option value="Jotted down">Jotted down</Option>
                 <Option value="Getting cooked">Getting cooked</Option>
                 <Option value="Ready for table">Ready for table</Option>
