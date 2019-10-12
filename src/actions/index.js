@@ -1,12 +1,4 @@
-interface SubmissionData {
-  firstName: string,
-  lastName: string,
-  tableNo: number,
-  order: string,
-  state: string,
-}
-
-export const addRecord = (record: SubmissionData) => async (dispatch: any) => {
+export const addRecord = record => async (dispatch) => {
 
   try {
     // const { data } = await axios({
@@ -27,7 +19,7 @@ export const addRecord = (record: SubmissionData) => async (dispatch: any) => {
   }
 };
 
-export const editStatus = (data: { key: number, status: string }) => async (dispatch: any) => {
+export const editStatus = data => async (dispatch) => {
 
   try {
     // const { data } = await axios({

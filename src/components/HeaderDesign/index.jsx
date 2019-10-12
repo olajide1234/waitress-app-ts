@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { Menu, Icon, PageHeader, Row, Col, Divider } from 'antd';
 
-
-interface EventClick {
-  key: string
-}
-
 function HeaderDesign() {
   let { pathname } = useLocation();
   let history = useHistory();
@@ -17,7 +12,8 @@ function HeaderDesign() {
     setCurrentDetails({ ...currentDetails, current: pathname });
   }, [pathname]);
 
-  function handleClick(e: EventClick): void {
+
+  function handleClick(e) {
     const { key } = e;
     history.push(key);
   };
