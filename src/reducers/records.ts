@@ -1,8 +1,18 @@
-function updateObject(oldObject, newValues) {
+interface SubmissionData {
+  key: number,
+  firstName: string,
+  lastName: string,
+  tableNo: number,
+  order: string,
+  state: string,
+}
+
+
+function updateObject(oldObject: {}, newValues: {}) {
   return Object.assign({}, oldObject, newValues)
 }
 
-function updateItemInArray(array, key, updateItemCallback) {
+function updateItemInArray(array: { key: number }[], key: number, updateItemCallback: ({ }) => {}) {
   const updatedItems = array.map(record => {
     if (record.key !== key) {
       return record
@@ -18,7 +28,7 @@ function updateItemInArray(array, key, updateItemCallback) {
 
 const records = (state = [
   {
-    key: '1',
+    key: 1,
     firstName: 'John',
     lastName: 'Brown',
     tableNo: 32,
@@ -26,14 +36,14 @@ const records = (state = [
     state: 'Jotted down',
   },
   {
-    key: '2',
+    key: 2,
     firstName: 'Jim',
     lastName: 'Green',
     tableNo: 42,
     order: 'Rice and jollof',
     state: 'Getting cooked',
   },
-], action) => {
+], action: { type: string, data?: { key: number, status: string }, record?: SubmissionData }) => {
   switch (action.type) {
     case 'ADD_RECORD': {
       return [
@@ -41,11 +51,15 @@ const records = (state = [
       ]
     }
     case 'EDIT_RECORD': {
-      const newRecords = updateItemInArray(state, action.data.key, record => {
-        return updateObject(record, { state: action.data.status })
-      })
-
-      return newRecords;
+      if (action.data) {
+        const { status } = action.data;
+        const newRecords = updateItemInArray(
+          state,
+          action.data.key,
+          record => { return updateObject(record, { state: status }) }
+        )
+        return newRecords;
+      }
     }
     default:
       return state
