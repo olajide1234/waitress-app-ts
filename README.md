@@ -1,4 +1,4 @@
-## Waitress app
+## Waitress app implemented in TS
 
 This is a simple application to allow waiters receive and view orders
 

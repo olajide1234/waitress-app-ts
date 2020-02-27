@@ -12,6 +12,18 @@ import {
 
 const { TextArea } = Input;
 
+interface EventClick {
+  target: { name: string, value: string }
+}
+
+interface SubmissionData {
+  firstName: string,
+  lastName: string,
+  tableNo: number,
+  order: string,
+  state: string,
+}
+
 function OrderForm() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,23 +31,24 @@ function OrderForm() {
     {
       firstName: '',
       lastName: '',
-      tableNo: '',
+      tableNo: 0,
       order: '',
       state: 'Jotted down',
     }
   );
 
-  function updateLocalState(event) {
+
+  function updateLocalState(event: EventClick): void {
     setFormInput({ ...formInput, [event.target.name]: event.target.value });
   }
 
-  function updateLocalStateTable(number) {
+  function updateLocalStateTable(number: number) {
     setFormInput({ ...formInput, tableNo: number });
   }
 
-  async function handleSubmit(data) {
+  async function handleSubmit(data: SubmissionData) {
 
-    if (data.tableNo === "" || data.order === "") {
+    if (data.tableNo === 0 || data.order === "") {
       return alert('Table number and order are compulsory');
     }
 
@@ -45,7 +58,7 @@ function OrderForm() {
       await setFormInput({
         firstName: '',
         lastName: '',
-        tableNo: '',
+        tableNo: 0,
         order: '',
         state: 'Jotted down',
       });
